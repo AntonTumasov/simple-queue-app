@@ -115,6 +115,7 @@ kubectl exec <pod_name> -- diff /data/input.txt /data/output.txt
     ├── service.yaml     # ClusterIP Services
 ```
 
+
 ## Load testing
 
 To use Kubernetes autoscaling the metrics-server needs to be installed in the cluster:
@@ -143,6 +144,7 @@ hey -n 1000 -c 10 -H "Content-Type: application/json" -m POST -D /data/input.txt
 
 **Important note**: when there's more than one consumer (>1 replica), the messages are distributed among the consumers in a round-robin fashion and because the processing of lines is sequential, the output file will contain only a portion of the input file, sometimes an EOF which is a separator but none of the pods get full file. Besides, those pods don't even have the input file copied to them hence the data is only partial.
 For the sake of a simple demo, use a single replica. In real world this situation would be handled slightly differently with the partitioning and using a single consumer per partition. Or alternatively, some persistent storage like a DB or an S3 bucket.
+
 
 ## Observability and Monitoring + logging
 
