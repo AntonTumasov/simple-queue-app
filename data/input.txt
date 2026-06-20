@@ -1,0 +1,11 @@
+The quick brown fox jumps over the lazy dog.
+Pack my box with five dozen liquor jugs.
+How vexingly quick daft zebras jump!
+0123456789 ~!@#$%^&*()_+-=[]{}|;':",./<>?
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	Indented with a tab	and another tab here.
+Line 7: short
+Line 8: UPPER lower MiXeD cAsE
+Line 9: trailing spaces   
+The last line of the file.
+EOF

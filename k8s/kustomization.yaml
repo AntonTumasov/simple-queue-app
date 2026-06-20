@@ -1,0 +1,14 @@
+#Using it for simplicity. Would instead use Helm in production with all resources templated and packaged in a Chart.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: queue-app
+
+resources:
+  - deployment.yaml
+  - hpa.yaml
+  - namespace.yaml
+  - pdb.yaml
+  - secret.yaml
+  - service.yaml
+  - statefulset.yaml
+

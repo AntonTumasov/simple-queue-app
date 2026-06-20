@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queue-app
+  labels:
+    app: queue-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue-app
+  template:
+    metadata:
+      labels:
+        app: queue-app
+    spec:
+      containers:
+        - name: queue-app
+          image: simple-queue-service-app:latest # Using the latest tag for demo, not intended for Production
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq
+            - name: RABBITMQ_PORT
+              value: "5672"
+            # Hardcoding the queue name for simplicity. Would be read from an external source in Production, e.g. ConfigMap or Secret.
+            - name: QUEUE_NAME
+              value: file_queue
+            - name: APP_PORT
+              value: "8080"
+            - name: OUTPUT_FILE
+              value: /data/output.txt
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 2
+      volumes:
+        - name: data
+          emptyDir: {}

@@ -1,0 +1,23 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: queue-app
+  labels:
+    app: queue-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: queue-app
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
