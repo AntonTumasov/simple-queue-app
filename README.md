@@ -116,6 +116,7 @@ kubectl exec <pod_name> -- diff /data/input.txt /data/output.txt
 ```
 
 # Load testing
+
 To use Kubernetes autoscaling the metrics-server needs to be installed in the cluster:
 
 ```bash
@@ -144,4 +145,5 @@ hey -n 1000 -c 10 -H "Content-Type: application/json" -m POST -D /data/input.txt
 For the sake of a simple demo, use a single replica. In real world this situation would be handled slightly differently with the partitioning and using a single consumer per partition. Or alternatively, some persistent storage like a DB or an S3 bucket.
 
 # Observability and Monitoring + logging
+
 There wasn't enough time to implement the solutions so as a future improvement there could be Opentelemetry installed for distributed tracing and metrics collection as well as some logging solution, e.g. FluentD or Loki.
